@@ -5,7 +5,7 @@
 // tag:
 //   - with attrs: [tag, attrs, ...children]
 //   - without attrs: [tag, ...children]
-//   - where: 
+//   - where:
 //     - tag is a string
 //     - attrs is a JS object {} of key/value pairs
 //       - (use string keys for reserved words, like "class")
@@ -29,7 +29,7 @@ function _parseElementSpec(tag, ...rest) {
 // tag:
 //   - with attrs: [tag, attrs, ...children]
 //   - without attrs: [tag, ...children]
-//   - where: 
+//   - where:
 //     - tag is a string
 //     - attrs is a JS object {} of key/value pairs
 //       - (use string keys for reserved words, like "class")
@@ -51,7 +51,7 @@ function _parseSpec(spec) {
   }
 }
 
-function elementFromElementNode(document, elementNode) {
+function _elementFromElementNode(document, elementNode) {
   const {tag, attrs, children} = elementNode;
 	const elem = document.createElement(tag);
 
@@ -65,13 +65,17 @@ function elementFromElementNode(document, elementNode) {
 	return elem;
 }
 
-function element(document, parsedNode) {
+function _element(document, parsedNode) {
   switch(parsedNode.type) {
     case "text":
       return document.createTextNode(parsedNode.text);
     case "element":
       return elementFromElementNode(document, parsedNode);
   }
+}
+
+function element(spec) {
+  return _element(document, _parseSpec(spec));
 }
 
 exports._parseSpec = _parseSpec;
