@@ -1,12 +1,12 @@
 {
   "name": "domliteral",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Create DOM nodes from plain JS data literals",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
     "test": "mocha --compilers js:babel-core/register ./test/*.js",
-    "prepublisH": "npm run build"
+    "prepublish": "npm run build"
   },
   "author": "Elliot Block <elliot@dissociate.net> and Dan Evans <thedanevans@gmail.com>",
   "license": "MIT",
