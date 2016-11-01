@@ -1,10 +1,10 @@
 {
   "name": "domliteral",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create DOM nodes from plain JS data literals",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir distribution",
+    "build": "babel src --out-dir dist",
     "test": "mocha --compilers js:babel-core/register ./test/*.js",
     "prepublisH": "npm run build"
   },
