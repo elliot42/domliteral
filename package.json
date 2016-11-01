@@ -1,0 +1,18 @@
+{
+  "name": "domliteral",
+  "version": "1.0.0",
+  "description": "Create DOM nodes from plain JS data literals",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register ./test/*.js"
+  },
+  "author": "Elliot Block <elliot@dissociate.net> and Dan Evans <thedanevans@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.0",
+    "babel-polyfill": "^6.16.0",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2"
+  }
+}
