@@ -19,7 +19,7 @@ dom.element("hello") // returns an actual DOM element, if you're in a browser co
 
 // common use
 const elem = dom.element(["div", {"class": "foo"}, "hello"])
-document.appendChild(elem);
+document.body.appendChild(elem);
 ```
 
 ## Usage
@@ -36,13 +36,13 @@ const buttonElement = dom.element(
   [
     "button",
     { onClick: function(evt) {
-        document.appendChild(dom.element(timeParagraph(new Date())));
+        document.body.appendChild(dom.element(timeParagraph(new Date())));
     },
     "Click to write the date"
   ]
 );
 
-document.appendChild(buttonElement);
+document.body.appendChild(buttonElement);
 ```
 
 If you don't have a full node build environment set up, you can just
