@@ -22,7 +22,30 @@ const elem = dom.element(["div", {"class": "foo"}, "hello"])
 document.appendChild(elem);
 ```
 
-## Examples
+## Usage
+
+`domliteral` allows you to create lightweight, composable view
+components in JS without the machinery of templating or React.
+
+```javascript
+function timeParagraph(date) {
+  return ["p", "The time is: " date]
+}
+
+const buttonElement = dom.element(
+  [
+    "button",
+    { onClick: function(evt) {
+        document.appendChild(dom.element(timeParagraph(new Date())));
+    },
+    "Click to write the date"
+  ]
+);
+
+document.appendChild(buttonElement);
+```
+
+## Syntax
 
 ```javascript
 
