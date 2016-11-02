@@ -14,7 +14,7 @@ function _parseElementSpec(tag, ...rest) {
   const type = "element";
   const head = rest[0]
   const hasAttrs = (head && head.constructor == Object)
-  const attrs = Object.entries(hasAttrs ? head : {});
+  const attrs = hasAttrs ? head : {};
   const children_raw = hasAttrs ? rest.slice(1) : rest;
   const children = children_raw.map(child => _parseSpec(child));
   return { type, tag, attrs, children }
@@ -55,8 +55,8 @@ function _elementFromElementNode(document, elementNode) {
   const {tag, attrs, children} = elementNode;
 	const elem = document.createElement(tag);
 
-  for (let kv of attrs) {
-		elem.setAttribute(...kv);
+  for (let k of Object.keys(attrs)) {
+    elem.setAttribute(k, attrs[k]);
   }
 
 	for (let childNode of children) {

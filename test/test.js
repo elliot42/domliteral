@@ -34,7 +34,7 @@ describe('_parseSpec', function() {
           const results = dom._parseSpec(spec);
 
           assert.equal(results.tag, "html");
-          assert.deepEqual(results.attrs, Object.entries(attrs));
+          assert.deepEqual(results.attrs, attrs);
           assert.deepEqual(results.children, []);
         });
       });
@@ -47,8 +47,8 @@ describe('_parseSpec', function() {
           const results = dom._parseSpec(spec);
 
           assert.equal(results.tag, "html");
-          assert.deepEqual(results.attrs, Object.entries(attrs));
           assert.deepEqual(results.children, [child].map(c => dom._parseSpec(c)));
+          assert.deepEqual(results.attrs, attrs);
         });
       });
 
@@ -60,8 +60,8 @@ describe('_parseSpec', function() {
           const results = dom._parseSpec(spec);
 
           assert.equal(results.tag, "html");
-          assert.deepEqual(results.attrs, Object.entries(attrs));
           assert.deepEqual(results.children, [child, child].map(c => dom._parseSpec(c)));
+          assert.deepEqual(results.attrs, attrs);
         });
       });
     });
