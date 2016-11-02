@@ -44,6 +44,6 @@ dom.parse(
 
 // everything else works like normal, including variables and event handlers
 function button(label, alertText) {
-  return ["button", {onClick: function(event) { alert(alertText); }}, alertText];
+  return ["button", {onClick: function(event) { alert(alertText); }}, label];
 }
 ```
