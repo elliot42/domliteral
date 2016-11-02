@@ -10,13 +10,13 @@
 //     - attrs is a JS object {} of key/value pairs
 //       - (use string keys for reserved words, like "class")
 //     - children are each themselves specs, recursively.
-function _parseElementSpec(tag, ...rest) {
+function _parseElement(tag, ...rest) {
   const type = "element";
   const head = rest[0]
   const hasAttrs = (head && head.constructor == Object)
   const attrs = hasAttrs ? head : {};
   const children_raw = hasAttrs ? rest.slice(1) : rest;
-  const children = children_raw.map(child => _parseSpec(child));
+  const children = children_raw.map(child => parse(child));
   return { type, tag, attrs, children }
 }
 
@@ -34,7 +34,7 @@ function _parseElementSpec(tag, ...rest) {
 //     - attrs is a JS object {} of key/value pairs
 //       - (use string keys for reserved words, like "class")
 //     - children are each themselves specs, recursively.
-function _parseSpec(spec) {
+function parse(spec) {
   switch(typeof spec) {
     case "string":
       return {
@@ -47,7 +47,7 @@ function _parseSpec(spec) {
         text: spec.toString()
       }
     default:
-      return _parseElementSpec(...spec);
+      return _parseElement(...spec);
   }
 }
 
@@ -60,7 +60,7 @@ function _elementFromElementNode(document, elementNode) {
   }
 
 	for (let childNode of children) {
-		elem.appendChild(element(document, childNode));
+		elem.appendChild(_element(document, childNode));
 	}
 	return elem;
 }
@@ -70,13 +70,14 @@ function _element(document, parsedNode) {
     case "text":
       return document.createTextNode(parsedNode.text);
     case "element":
-      return elementFromElementNode(document, parsedNode);
+      return _elementFromElementNode(document, parsedNode);
   }
 }
 
 function element(spec) {
-  return _element(document, _parseSpec(spec));
+  return _element(document, parse(spec));
 }
 
-exports._parseSpec = _parseSpec;
+exports.parse = parse;
+exports._element = _element;
 exports.element = element;

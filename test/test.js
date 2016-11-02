@@ -1,14 +1,13 @@
 const jsdom = require("jsdom");
-const document = jsdom.jsdom("");
 var assert = require("assert");
 const dom = require("../src/index");
 import 'babel-polyfill'
 
-describe('_parseSpec', function() {
+describe('parse', function() {
   context('with a text spec', function() {
     it('parses correctly', function() {
       const spec = "foo";
-      const results = dom._parseSpec(spec);
+      const results = dom.parse(spec);
 
       assert.equal(results.type, "text");
       assert.equal(results.text, "foo");
@@ -18,7 +17,7 @@ describe('_parseSpec', function() {
   context('with a number spec', function() {
     it('parses correctly', function() {
       const spec = 42;
-      const results = dom._parseSpec(spec);
+      const results = dom.parse(spec);
 
       assert.equal(results.type, "text");
       assert.equal(results.text, "42");
@@ -31,7 +30,7 @@ describe('_parseSpec', function() {
         it('parses correctly', function() {
           const attrs = {"class": "foo"}
           const spec = ["html", attrs]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
           assert.deepEqual(results.attrs, attrs);
@@ -44,11 +43,11 @@ describe('_parseSpec', function() {
           const attrs = {"class": "foo"}
           const child = ["body", {"class": "bar"}, "Test"]
           const spec = ["html", attrs, child]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
-          assert.deepEqual(results.children, [child].map(c => dom._parseSpec(c)));
           assert.deepEqual(results.attrs, attrs);
+          assert.deepEqual(results.children, [child].map(c => dom.parse(c)));
         });
       });
 
@@ -57,11 +56,11 @@ describe('_parseSpec', function() {
           const attrs = {"class": "foo"}
           const child = ["p", {"class": "bar"}, "Test"]
           const spec = ["html", attrs, child, child]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
-          assert.deepEqual(results.children, [child, child].map(c => dom._parseSpec(c)));
           assert.deepEqual(results.attrs, attrs);
+          assert.deepEqual(results.children, [child, child].map(c => dom.parse(c)));
         });
       });
     });
@@ -70,7 +69,7 @@ describe('_parseSpec', function() {
       context('with no children', function() {
         it('parses correctly', function() {
           const spec = ["html"]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
           assert.deepEqual(results.attrs, {});
@@ -82,11 +81,11 @@ describe('_parseSpec', function() {
         it('parses correctly', function() {
           const child = ["body", {"class": "bar"}, "Test"]
           const spec = ["html", child]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
           assert.deepEqual(results.attrs, {});
-          assert.deepEqual(results.children, [child].map(c => dom._parseSpec(c)));
+          assert.deepEqual(results.children, [child].map(c => dom.parse(c)));
         });
       });
 
@@ -94,11 +93,11 @@ describe('_parseSpec', function() {
         it('parses correctly', function() {
           const child = ["p", {"class": "bar"}, "Test"]
           const spec = ["html", child, child]
-          const results = dom._parseSpec(spec);
+          const results = dom.parse(spec);
 
           assert.equal(results.tag, "html");
           assert.deepEqual(results.attrs, {});
-          assert.deepEqual(results.children, [child, child].map(c => dom._parseSpec(c)));
+          assert.deepEqual(results.children, [child, child].map(c => dom.parse(c)));
         });
       });
     });
@@ -115,8 +114,9 @@ describe('element', function() {
                         ["p", "This is my treatise on the dark injustices of our times."]
                       ]
                     ]
-    const result = dom.element(document, dom._parseSpec(content));
+
+    const document = jsdom.jsdom("");
+    const result = dom._element(document, dom.parse(content));
     assert.ok(result);
-    console.log(result.toString());
   });
 });
