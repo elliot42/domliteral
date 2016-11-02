@@ -45,6 +45,30 @@ const buttonElement = dom.element(
 document.appendChild(buttonElement);
 ```
 
+If you don't have a full node build environment set up, you can just
+`<script>` it into your page via `unpkg`:
+
+```html
+<script src="https://unpkg.com/domliteral/dist/domliteral.js"></script>
+```
+
+For example:
+
+```html
+<html>
+<body>
+<script src="https://unpkg.com/domliteral/dist/domliteral.js"></script>
+<script>
+  var e = ["form", {action: "/", method: "POST"},
+            ["input", {type: "text", value: "my text"}],
+            ["input", {type: "submit", value: "behold!"}]];
+
+  document.body.appendChild(domliteral.element(e));
+</script>
+</body>
+</html>
+```
+
 ## Syntax
 
 ```javascript
