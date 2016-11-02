@@ -14,7 +14,7 @@ In your script:
 const dom = require("domliteral");
 
 // exposes two functions:
-dom.parse("hello"))   // returns a parse tree, mostly just for headless testing
+dom.parse("hello")   // returns a parse tree, mostly just for headless testing
 dom.element("hello") // returns an actual DOM element, if you're in a browser context
 
 // common use
@@ -30,9 +30,8 @@ document.appendChild(elem);
 dom.parse("hello") // => TextNode "hello"
 dom.parse(42)      // => TextNode "42"
 
-// tagged elements are represented as arrays,
-// where the second selement is optionally
-// an object of attributes
+// tagged elements are represented as arrays, where the second selement
+// is optionally an object of attributes
 dom.parse(["p"])                   // => <p></p>
 dom.parse(["p", {"class": "foo"}]  // => <p class="foo"></p>
 
