@@ -1,6 +1,6 @@
 {
   "name": "domliteral",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Create DOM nodes from plain JS data literals",
   "main": "dist/index.js",
   "scripts": {
